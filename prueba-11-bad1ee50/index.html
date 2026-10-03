@@ -379,7 +379,8 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     estado.nota = nGlobal;
     estado.buenas = buenas;
     estado.mejor = Math.max(estado.mejor || 0, nGlobal);
-    if (nueva) {
+    // También se registra una prueba revisada antes de que existiera el registro.
+    if (nueva || !estado.registro) {
       estado.intentos = (estado.intentos || 0) + 1;
       estado.registro = registro(r, buenas, nGlobal, notasAsig, pasa);
       estado.enviado = false;
