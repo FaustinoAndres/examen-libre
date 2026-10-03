@@ -233,7 +233,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     </div>
   </footer>
 </main>
-<script id="datos" type="application/json">{"id": "prueba-27", "total": 20, "clave": {"1": "b", "2": "d", "3": "a", "4": "d", "5": "c", "6": "b", "7": "c", "8": "e", "9": "d", "10": "a", "11": "b", "12": "a", "13": "b", "14": "c", "15": "d", "16": "b", "17": "a", "18": "c", "19": "a", "20": "d"}, "exigencia": 0.6, "asignaturas": [["le", "Lenguaje"], ["ma", "Matemática"], ["cn", "Ciencias Naturales"], ["hi", "Historia"]]}</script>
+<script id="datos" type="application/json">{"id": "prueba-27", "total": 20, "clave": {"1": "b", "2": "d", "3": "a", "4": "d", "5": "c", "6": "b", "7": "c", "8": "e", "9": "d", "10": "a", "11": "b", "12": "a", "13": "b", "14": "c", "15": "d", "16": "b", "17": "a", "18": "c", "19": "a", "20": "d"}, "exigencia": 0.6, "registro": "https://script.google.com/macros/s/AKfycbwicB1MyXOLdGAfsg2uaWAQadwse_VSGn6FBZFvxfGZ5PPKLyfKOHd4g6fmEZGrtTDF/exec", "asignaturas": [["le", "Lenguaje"], ["ma", "Matemática"], ["cn", "Ciencias Naturales"], ["hi", "Historia"]]}</script>
 <script>
 (() => {
   const D = JSON.parse(document.getElementById('datos').textContent);
@@ -299,7 +299,37 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     return rojas === 0 || (rojas === 1 && prom >= 4.5) || (rojas === 2 && prom >= 5);
   }
 
-  function revisar() {
+  // Envía el resultado a la planilla. Con no-cors no se puede leer la respuesta: si la red
+  // falla, queda pendiente y se reintenta la próxima vez que se abra la prueba.
+  function enviar() {
+    if (!D.registro || !estado.registro || estado.enviado) return;
+    fetch(D.registro, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(estado.registro),
+    }).then(() => { estado.enviado = true; guardar(estado); }).catch(() => {});
+  }
+
+  function registro(r, buenas, nGlobal, notasAsig, pasa) {
+    const nombres = Object.fromEntries(D.asignaturas);
+    const preguntas = [...document.querySelectorAll('.pregunta')].map((art) => {
+      const n = art.dataset.n;
+      return { n: +n, asignatura: nombres[art.dataset.asig], oa: +art.dataset.oa,
+        respondio: r[n] || '', correcta: D.clave[n], ok: r[n] === D.clave[n] };
+    });
+    return {
+      fecha: new Date().toISOString(),
+      prueba: parseInt(D.id.split('-')[1], 10),
+      intento: estado.intentos,
+      minutos: estado.inicio ? Math.round((estado.fin - estado.inicio) / 60000) : 0,
+      buenas, total: D.total, nota: nGlobal, aprueba: pasa,
+      notas: Object.fromEntries(D.asignaturas.map(([k], i) => [k, notasAsig[i]])),
+      resumen: preguntas.map((p) => p.n + ' ' + (p.respondio || '—') + (p.ok ? ' ✓' : ' ✗ (' + p.correcta + ')')).join(' · '),
+      preguntas,
+    };
+  }
+
+  function revisar(nueva) {
     const r = respuestas();
     estado.revisada = true;
     estado.fin = estado.fin || Date.now();
@@ -327,7 +357,13 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     estado.nota = nGlobal;
     estado.buenas = buenas;
     estado.mejor = Math.max(estado.mejor || 0, nGlobal);
+    if (nueva) {
+      estado.intentos = (estado.intentos || 0) + 1;
+      estado.registro = registro(r, buenas, nGlobal, notasAsig, pasa);
+      estado.enviado = false;
+    }
     guardar(estado);
+    enviar();
     const necesarias = Math.ceil(D.exigencia * D.total - 1e-9);
     $('nota').className = 'nota ' + tono(nGlobal);
     $('nota-num').textContent = fmt(nGlobal);
@@ -366,9 +402,9 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
       $('confirmar').hidden = false;
       return;
     }
-    revisar();
+    revisar(true);
   });
-  $('revisar-igual').addEventListener('click', revisar);
+  $('revisar-igual').addEventListener('click', () => revisar(true));
   $('volver').addEventListener('click', () => {
     $('confirmar').hidden = true;
     const r = respuestas();
@@ -376,7 +412,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
     if (primera) $('p' + primera).scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
   $('otra-vez').addEventListener('click', () => {
-    estado = { r: {}, mejor: estado.mejor };
+    estado = { r: {}, mejor: estado.mejor, intentos: estado.intentos };
     guardar(estado);
     form.reset();
     document.querySelectorAll('.pregunta').forEach((art) => {
@@ -397,7 +433,7 @@ fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
   });
 
   avance(); reloj();
-  if (estado.revisada) revisar();
+  if (estado.revisada) revisar(false);
 })();
 </script>
 </body>
