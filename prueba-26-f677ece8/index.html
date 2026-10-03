@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Examen libre · Prueba 26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+/* Hoja de prueba de papel sobre el escritorio; en modo oscuro, la pizarra de las presentaciones. */
+:root {
+  --escritorio: #e7edf2;
+  --hoja: #ffffff;
+  --renglon: #dce6ee;
+  --tinta: #1d2733;
+  --tenue: #5a6878;
+  --lapiz: #39434f;
+  --rojo: #cf2e25;
+  --azul: #1f4fbf;
+  --ok: #1f8a4c;
+  --ok-fondo: #e3f4e9;
+  --mal-fondo: #fbe6e4;
+  --le: #c8452a; --ma: #2a63c4; --cn: #23875a; --hi: #a8700c;
+  --mar: #cfe4f3; --tierra: #efe9dc; --chile: #f6d6a8; --monte: #8b5e3c;
+  --sombra: 0 1px 2px rgba(29,39,51,.08), 0 8px 24px rgba(29,39,51,.08);
+  --f-cuerpo: 'Baloo 2', 'Trebuchet MS', system-ui, sans-serif;
+  --f-mano: 'Patrick Hand', 'Comic Sans MS', cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --escritorio: #101c15; --hoja: #1a2d21; --renglon: #2c4535; --tinta: #f3eee0; --tenue: #a9baa9;
+    --lapiz: #f3eee0; --rojo: #ff8a7a; --azul: #8ab4ff; --ok: #8fe38f; --ok-fondo: #24442d; --mal-fondo: #4d2a25;
+    --le: #ff9a6b; --ma: #6cc8ea; --cn: #8fe38f; --hi: #ffd34e;
+    --mar: #1e3d4f; --tierra: #2a3a2c; --chile: #5a4a2c; --monte: #d9a877;
+    --sombra: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --escritorio: #101c15; --hoja: #1a2d21; --renglon: #2c4535; --tinta: #f3eee0; --tenue: #a9baa9;
+  --lapiz: #f3eee0; --rojo: #ff8a7a; --azul: #8ab4ff; --ok: #8fe38f; --ok-fondo: #24442d; --mal-fondo: #4d2a25;
+  --le: #ff9a6b; --ma: #6cc8ea; --cn: #8fe38f; --hi: #ffd34e;
+  --mar: #1e3d4f; --tierra: #2a3a2c; --chile: #5a4a2c; --monte: #d9a877;
+  --sombra: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+body { margin: 0; background: var(--escritorio); color: var(--tinta); font: 400 1.15rem/1.5 var(--f-cuerpo); }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mano { font-family: var(--f-mano); }
+.rojo { color: var(--rojo); }
+
+/* barra de avance */
+.barra { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--escritorio); padding-inline: 16px; }
+.barra-in { max-width: 780px; margin: 0 auto; display: flex; align-items: center; gap: 14px; padding-block: 10px; font-size: .95rem; color: var(--tenue); font-variant-numeric: tabular-nums; }
+.progreso b { color: var(--tinta); }
+.volver { color: var(--tinta); font-weight: 700; text-decoration: none; white-space: nowrap; }
+.volver:hover { text-decoration: underline; }
+.medidor { flex: 1; height: 8px; border-radius: 99px; background: var(--renglon); overflow: hidden; }
+.medidor span { display: block; height: 100%; width: 0; background: var(--tinta); border-radius: inherit; transition: width .3s; }
+.reloj { white-space: nowrap; }
+
+/* hoja */
+.hoja { max-width: 780px; margin: 0 auto 48px; background: var(--hoja); box-shadow: var(--sombra); border-radius: 6px; padding-block: 28px 32px; padding-inline: clamp(16px, 5vw, 48px); }
+@media (max-width: 812px) { .hoja { margin-inline: 16px; } }
+.membrete { border-bottom: 2px solid var(--tinta); padding-bottom: 18px; margin-bottom: 8px; }
+.inst { margin: 0; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--tenue); font-weight: 600; }
+h1 { margin: 2px 0 14px; font-size: clamp(2rem, 6vw, 2.6rem); line-height: 1.1; font-weight: 800; text-wrap: balance; }
+.campos { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 0 0 14px; }
+.campos div { display: flex; align-items: baseline; gap: 8px; }
+.campos dt { font-size: .85rem; color: var(--tenue); font-weight: 600; }
+.campos dd { margin: 0; min-width: 90px; border-bottom: 1.5px solid var(--renglon); font-size: 1.35rem; line-height: 1.2; }
+.campo-puntaje dd { font-family: var(--f-cuerpo); font-size: 1.1rem; min-width: 70px; }
+.campo-puntaje .mano { font-size: 1.5rem; }
+.campo-nota dd { min-width: 60px; font-size: 1.7rem; }
+.aprueba { --pluma: var(--azul); color: var(--azul); }
+.reprueba { --pluma: var(--rojo); color: var(--rojo); }
+.indic { margin: 0; color: var(--tenue); font-size: 1rem; max-width: 62ch; }
+
+/* asignaturas */
+.asig { --c: var(--tinta); padding-top: 18px; }
+.asig-le { --c: var(--le); } .asig-ma { --c: var(--ma); } .asig-cn { --c: var(--cn); } .asig-hi { --c: var(--hi); }
+.asig h2 { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px; margin: 18px 0 6px; padding-bottom: 6px; border-bottom: 3px solid var(--c); font-size: 1.45rem; font-weight: 800; color: var(--c); }
+.asig h2 small { font-size: .9rem; font-weight: 600; color: var(--tenue); }
+
+/* lectura */
+.lectura { margin: 18px 0 8px; padding: 18px 22px; border: 2px solid var(--c); border-radius: 4px; background-image: repeating-linear-gradient(transparent 0 2.05rem, var(--renglon) 2.05rem calc(2.05rem + 1px)); background-position-y: 3.6rem; }
+.lectura-eti { margin: 0; font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+.lectura h3 { margin: 0 0 6px; font-size: 1.45rem; font-weight: 800; }
+.lectura p:not(.lectura-eti) { margin: 0; font-size: 1.4rem; line-height: 2.05rem; }
+
+/* preguntas */
+.pregunta { position: relative; display: grid; grid-template-columns: 2.6rem minmax(0, 1fr); gap: 0 12px; padding: 20px 0 18px; border-bottom: 1px dashed var(--renglon); }
+.pregunta:last-child { border-bottom: 0; }
+.p-num { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 50%; background: var(--c); color: var(--hoja); font-weight: 800; font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.p-cuerpo { min-width: 0; }
+.enunciado p { margin: 4px 0 10px; font-size: 1.35rem; line-height: 1.45; font-weight: 500; }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.opciones { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.opciones input { position: absolute; opacity: 0; pointer-events: none; }
+.op { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 8px 14px 8px 8px; border: 2px solid var(--renglon); border-radius: 10px; cursor: pointer; font-size: 1.25rem; transition: border-color .15s, background-color .15s; }
+.op:hover { border-color: var(--tenue); }
+.letra { flex: none; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; font-weight: 700; color: var(--tenue); border: 2.5px solid transparent; border-radius: 50%; }
+.op-texto { min-width: 0; }
+.op-texto.emoji { font-size: 1.9rem; line-height: 1.2; }
+.opciones input:focus-visible + .op { outline: 3px solid var(--c); outline-offset: 2px; }
+/* marcar = encerrar la letra en un círculo, como en la hoja */
+.opciones input:checked + .op { border-color: var(--lapiz); }
+.opciones input:checked + .op .letra { color: var(--lapiz); border-color: var(--lapiz); border-radius: 52% 46% 55% 44% / 48% 55% 45% 52%; transform: rotate(-8deg); }
+
+/* figuras */
+.fig { margin: 4px 0 14px; overflow-x: auto; }
+.fig svg { display: block; max-width: 100%; height: auto; }
+.fig-fila { display: flex; flex-wrap: wrap; gap: 10px; font-size: 2.3rem; line-height: 1.2; padding: 8px 12px; border: 2px dashed var(--renglon); border-radius: 10px; width: fit-content; max-width: 100%; }
+.bloques .cubo { fill: var(--ma); stroke: var(--hoja); stroke-width: 1.5; }
+.largos .tramo { fill: var(--ma); }
+.largos .et, .mapa .et { fill: var(--tinta); font: 600 15px var(--f-cuerpo); }
+.fig-tabla table { border-collapse: collapse; font-size: 1.15rem; }
+.fig-tabla caption { text-align: left; font-weight: 700; padding-bottom: 6px; }
+.fig-tabla th { text-align: left; font-weight: 600; padding: 6px 16px 6px 10px; border: 1.5px solid var(--renglon); white-space: nowrap; }
+.fig-tabla td { padding: 6px 10px; border: 1.5px solid var(--renglon); }
+.picto { font-size: 1.6rem; letter-spacing: .12em; white-space: nowrap; }
+.leyenda { margin: 6px 0 0; font-size: 1rem; color: var(--tenue); }
+.palitos { display: inline-block; margin-right: 8px; vertical-align: middle; }
+.palitos line { stroke: var(--tinta); stroke-width: 2.4; stroke-linecap: round; }
+.mapa .mar { fill: var(--mar); }
+.mapa .vecino { fill: var(--tierra); }
+.mapa .chile { fill: var(--chile); stroke: var(--monte); stroke-width: 1.5; }
+.mapa .montes path { fill: var(--monte); }
+.mapa .capital { fill: var(--rojo); }
+.mapa .guia { stroke: var(--tinta); stroke-width: 1; }
+.mapa .chile-et { font-weight: 800; letter-spacing: .1em; }
+.mapa .rosa circle { fill: var(--hoja); stroke: var(--tinta); }
+.mapa .rosa text { fill: var(--tinta); font: 700 11px var(--f-cuerpo); }
+
+/* corrección con lápiz rojo */
+.marca { position: absolute; right: 0; top: 10px; font: 2.6rem/1 var(--f-mano); color: var(--rojo); transform: rotate(-10deg); pointer-events: none; }
+.revisada .op { cursor: default; }
+.revisada .op:hover { border-color: var(--renglon); }
+.revisada .op.es-correcta { border-color: var(--ok); background: var(--ok-fondo); }
+.revisada .op.es-correcta .letra { color: var(--ok); }
+.revisada input:checked + .op:not(.es-correcta) { border-color: var(--rojo); background: var(--mal-fondo); }
+.revisada input:checked + .op:not(.es-correcta) .op-texto { text-decoration: line-through; text-decoration-color: var(--rojo); }
+.porque { margin: 12px 0 0; padding: 10px 14px; border-left: 4px solid var(--c); background: color-mix(in srgb, var(--c) 9%, transparent); border-radius: 0 8px 8px 0; font-size: 1.1rem; max-width: 62ch; }
+
+.resultado { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin: 18px 0 6px; padding: 18px 0 20px; border-bottom: 2px solid var(--tinta); }
+/* la nota escrita a mano por la profesora: azul si aprueba (4,0 o más), roja si no */
+.nota { display: grid; place-items: center; align-content: center; gap: 4px; width: 148px; height: 124px; border: 3px solid var(--pluma); border-radius: 55% 45% 52% 48% / 50% 56% 44% 50%; transform: rotate(-6deg); font-family: var(--f-mano); line-height: .9; }
+.nota span { font-size: 4rem; }
+.nota small { font-size: 1.15rem; }
+.res-detalle { flex: 1 1 260px; min-width: 0; }
+.res-msj { margin: 0 0 10px; font-size: 1.6rem; line-height: 1.2; font-family: var(--f-mano); }
+.res-asig { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.res-asig li { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr) 3rem 2.6rem; align-items: center; gap: 10px; font-size: 1rem; font-variant-numeric: tabular-nums; }
+.res-asig .n-asig { font: 1.35rem/1 var(--f-mano); text-align: right; }
+.res-asig .tira { height: 10px; border-radius: 99px; background: var(--renglon); overflow: hidden; }
+.res-asig .tira span { display: block; height: 100%; background: var(--c); border-radius: inherit; }
+.res-asig .le { --c: var(--le); } .res-asig .ma { --c: var(--ma); } .res-asig .cn { --c: var(--cn); } .res-asig .hi { --c: var(--hi); }
+.res-repasar { margin: 10px 0 0; font-size: .98rem; color: var(--tenue); }
+
+/* cierre */
+.cierre { margin-top: 26px; display: grid; gap: 14px; }
+.botones { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { font: 700 1.15rem var(--f-cuerpo); padding: 12px 22px; border-radius: 10px; border: 2px solid var(--tinta); background: var(--tinta); color: var(--hoja); cursor: pointer; }
+.btn.sec { background: transparent; color: var(--tinta); }
+.btn:focus-visible { outline: 3px solid var(--ma); outline-offset: 2px; }
+.confirmar { padding: 14px 16px; border: 2px solid var(--rojo); border-radius: 10px; }
+.confirmar p { margin: 0 0 10px; }
+
+@media (max-width: 480px) {
+  .pregunta { grid-template-columns: minmax(0, 1fr); }
+  .p-cab { margin-bottom: 6px; }
+  .res-asig li { grid-template-columns: 7.2rem minmax(0, 1fr) 2.6rem 2.4rem; gap: 8px; }
+}
+@media print {
+  body { background: #fff; color: #000; }
+  .barra, .cierre, .resultado, .porque, .marca { display: none !important; }
+  .hoja { box-shadow: none; margin: 0; max-width: none; }
+  .pregunta { break-inside: avoid; }
+  .lectura { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div class="barra" id="barra">
+  <div class="barra-in">
+    <span class="progreso"><b id="respondidas">0</b> de 20 respondidas</span>
+    <span class="medidor" aria-hidden="true"><span id="medidor-lleno"></span></span>
+    <span class="reloj" id="reloj" title="La prueba real dura 90 minutos">0 min de 90</span>
+  </div>
+</div>
+<main class="hoja">
+  <header class="membrete">
+    <p class="inst">Examen libre · 1° básico</p>
+    <h1>Prueba 26</h1>
+    <dl class="campos">
+      <div><dt>Nombre</dt><dd class="mano">Gaspar</dd></div>
+      <div><dt>Fecha</dt><dd class="mano" id="fecha"></dd></div>
+      <div class="campo-puntaje"><dt>Puntaje</dt><dd><span class="mano" id="puntaje-hoja"></span> / 20</dd></div>
+      <div class="campo-nota"><dt>Nota</dt><dd class="mano" id="nota-hoja"></dd></div>
+    </dl>
+    <p class="indic">Lee cada pregunta y marca <b>una</b> alternativa. Tienes 90 minutos. Cuando termines, aprieta <b>Revisar mi prueba</b>.</p>
+  </header>
+
+  <section class="resultado" id="resultado" hidden aria-live="polite">
+    <div class="nota" id="nota"><span id="nota-num"></span><small id="nota-buenas"></small></div>
+    <div class="res-detalle">
+      <p class="res-msj" id="res-msj"></p>
+      <ul class="res-asig" id="res-asig"></ul>
+      <p class="res-repasar" id="res-repasar"></p>
+    </div>
+  </section>
+
+  <form id="prueba" autocomplete="off">
+<section class="asig asig-le"><h2><span>Lenguaje</span><small>Preguntas 1 a 5</small></h2><article class="pregunta" id="p1" data-n="1" data-asig="le" data-oa="3"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">1</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Qué dibujo empieza con el mismo sonido que <strong>mano</strong>?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 1</legend><ol class="opciones"><li><input type="radio" name="q1" id="q1a" value="a"><label for="q1a" class="op"><span class="letra">a</span><span class="op-texto emoji">🐶</span></label></li><li><input type="radio" name="q1" id="q1b" value="b"><label for="q1b" class="op"><span class="letra">b</span><span class="op-texto emoji">🐟</span></label></li><li><input type="radio" name="q1" id="q1c" value="c"><label for="q1c" class="op"><span class="letra">c</span><span class="op-texto emoji">🍎</span></label></li><li><input type="radio" name="q1" id="q1d" value="d"><label for="q1d" class="op"><span class="letra">d</span><span class="op-texto emoji">🌙</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> <strong>Ma</strong>no y <strong>ma</strong>nzana empiezan con el sonido <strong>m</strong>. Perro, pez y luna no.</p></div></article><article class="pregunta" id="p2" data-n="2" data-asig="le" data-oa="4"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">2</span></header><div class="p-cuerpo"><div class="enunciado"><p>Lee: <strong>El perro corre en el cerro.</strong> ¿Dónde corre el perro?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 2</legend><ol class="opciones"><li><input type="radio" name="q2" id="q2a" value="a"><label for="q2a" class="op"><span class="letra">a</span><span class="op-texto">En el cerro</span></label></li><li><input type="radio" name="q2" id="q2b" value="b"><label for="q2b" class="op"><span class="letra">b</span><span class="op-texto">En el carro</span></label></li><li><input type="radio" name="q2" id="q2c" value="c"><label for="q2c" class="op"><span class="letra">c</span><span class="op-texto">En la casa</span></label></li><li><input type="radio" name="q2" id="q2d" value="d"><label for="q2d" class="op"><span class="letra">d</span><span class="op-texto">En el río</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> La frase dice: "El perro corre en el <strong>cerro</strong>". Cerro se escribe con <strong>rr</strong>.</p></div></article><aside class="lectura"><p class="lectura-eti">Lee con atención</p><h3>Canelo encuentra una casa</h3><p>Canelo era un perrito de la calle.</p><p>Tenía frío y mucha hambre.</p><p>Una tarde, una niña llamada Rosa lo vio.</p><p>Rosa le dio agua y un poco de pan.</p><p>Su familia decidió cuidarlo.</p><p>Ahora Canelo duerme en una cama calentita.</p><p>¡Y mueve la cola todo el día!</p></aside><article class="pregunta" id="p3" data-n="3" data-asig="le" data-oa="8"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">3</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Cómo se siente Canelo al final del cuento?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 3</legend><ol class="opciones"><li><input type="radio" name="q3" id="q3a" value="a"><label for="q3a" class="op"><span class="letra">a</span><span class="op-texto">Triste</span></label></li><li><input type="radio" name="q3" id="q3b" value="b"><label for="q3b" class="op"><span class="letra">b</span><span class="op-texto">Enojado</span></label></li><li><input type="radio" name="q3" id="q3c" value="c"><label for="q3c" class="op"><span class="letra">c</span><span class="op-texto">Con miedo</span></label></li><li><input type="radio" name="q3" id="q3d" value="d"><label for="q3d" class="op"><span class="letra">d</span><span class="op-texto">Feliz</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> Canelo ahora tiene casa y mueve la cola todo el día. Los perros mueven la cola cuando están contentos.</p></div></article><aside class="lectura"><p class="lectura-eti">Lee con atención</p><h3>La Luna</h3><p>La Luna gira alrededor de la Tierra.</p><p>La Luna no tiene luz propia.</p><p>Brilla porque la ilumina el Sol.</p><p>En la Luna no hay aire ni agua.</p><p>Por eso, allí no hay plantas ni animales.</p></aside><article class="pregunta" id="p4" data-n="4" data-asig="le" data-oa="10"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">4</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Por qué brilla la Luna?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 4</legend><ol class="opciones"><li><input type="radio" name="q4" id="q4a" value="a"><label for="q4a" class="op"><span class="letra">a</span><span class="op-texto">Porque tiene fuego</span></label></li><li><input type="radio" name="q4" id="q4b" value="b"><label for="q4b" class="op"><span class="letra">b</span><span class="op-texto">Porque la ilumina el Sol</span></label></li><li><input type="radio" name="q4" id="q4c" value="c"><label for="q4c" class="op"><span class="letra">c</span><span class="op-texto">Porque tiene ampolletas</span></label></li><li><input type="radio" name="q4" id="q4d" value="d"><label for="q4d" class="op"><span class="letra">d</span><span class="op-texto">Porque es una estrella</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> El texto dice: "Brilla porque la ilumina el Sol".</p></div></article><article class="pregunta" id="p5" data-n="5" data-asig="le" data-oa="13"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">5</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Qué animal dice <strong>miau</strong>? Elige la respuesta bien escrita.</p></div><fieldset><legend class="sr">Alternativas de la pregunta 5</legend><ol class="opciones"><li><input type="radio" name="q5" id="q5a" value="a"><label for="q5a" class="op"><span class="letra">a</span><span class="op-texto">gado</span></label></li><li><input type="radio" name="q5" id="q5b" value="b"><label for="q5b" class="op"><span class="letra">b</span><span class="op-texto">jato</span></label></li><li><input type="radio" name="q5" id="q5c" value="c"><label for="q5c" class="op"><span class="letra">c</span><span class="op-texto">gatto</span></label></li><li><input type="radio" name="q5" id="q5d" value="d"><label for="q5d" class="op"><span class="letra">d</span><span class="op-texto">gato</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> El gato dice miau. Se escribe <strong>ga - to</strong>.</p></div></article></section><section class="asig asig-ma"><h2><span>Matemática</span><small>Preguntas 6 a 10</small></h2><article class="pregunta" id="p6" data-n="6" data-asig="ma" data-oa="3"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">6</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Cuál es el número <strong>veinte</strong>?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 6</legend><ol class="opciones"><li><input type="radio" name="q6" id="q6a" value="a"><label for="q6a" class="op"><span class="letra">a</span><span class="op-texto">12</span></label></li><li><input type="radio" name="q6" id="q6b" value="b"><label for="q6b" class="op"><span class="letra">b</span><span class="op-texto">2</span></label></li><li><input type="radio" name="q6" id="q6c" value="c"><label for="q6c" class="op"><span class="letra">c</span><span class="op-texto">22</span></label></li><li><input type="radio" name="q6" id="q6d" value="d"><label for="q6d" class="op"><span class="letra">d</span><span class="op-texto">10</span></label></li><li><input type="radio" name="q6" id="q6e" value="e"><label for="q6e" class="op"><span class="letra">e</span><span class="op-texto">20</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> Veinte son dos grupos de diez. Se escribe 20.</p></div></article><article class="pregunta" id="p7" data-n="7" data-asig="ma" data-oa="8"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">7</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Qué número muestran los bloques?</p></div><div class="fig"><svg class="bloques" viewBox="0 0 170 188" width="170" role="img" aria-label="1 barra(s) de diez y 6 cubo(s) suelto(s)"><rect class="cubo" x="4" y="4" width="18" height="18"/><rect class="cubo" x="4" y="22" width="18" height="18"/><rect class="cubo" x="4" y="40" width="18" height="18"/><rect class="cubo" x="4" y="58" width="18" height="18"/><rect class="cubo" x="4" y="76" width="18" height="18"/><rect class="cubo" x="4" y="94" width="18" height="18"/><rect class="cubo" x="4" y="112" width="18" height="18"/><rect class="cubo" x="4" y="130" width="18" height="18"/><rect class="cubo" x="4" y="148" width="18" height="18"/><rect class="cubo" x="4" y="166" width="18" height="18"/><rect class="cubo" x="34" y="166" width="18" height="18"/><rect class="cubo" x="56" y="166" width="18" height="18"/><rect class="cubo" x="78" y="166" width="18" height="18"/><rect class="cubo" x="100" y="166" width="18" height="18"/><rect class="cubo" x="122" y="166" width="18" height="18"/><rect class="cubo" x="144" y="166" width="18" height="18"/></svg></div><fieldset><legend class="sr">Alternativas de la pregunta 7</legend><ol class="opciones"><li><input type="radio" name="q7" id="q7a" value="a"><label for="q7a" class="op"><span class="letra">a</span><span class="op-texto">7</span></label></li><li><input type="radio" name="q7" id="q7b" value="b"><label for="q7b" class="op"><span class="letra">b</span><span class="op-texto">61</span></label></li><li><input type="radio" name="q7" id="q7c" value="c"><label for="q7c" class="op"><span class="letra">c</span><span class="op-texto">15</span></label></li><li><input type="radio" name="q7" id="q7d" value="d"><label for="q7d" class="op"><span class="letra">d</span><span class="op-texto">16</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> La barra es una decena (10) y hay 6 cubos sueltos: 10 + 6 = 16.</p></div></article><article class="pregunta" id="p8" data-n="8" data-asig="ma" data-oa="9"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">8</span></header><div class="p-cuerpo"><div class="enunciado"><p>Gaspar tenía 13 bolitas. Perdió 4. ¿Cuántas bolitas le quedan?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 8</legend><ol class="opciones"><li><input type="radio" name="q8" id="q8a" value="a"><label for="q8a" class="op"><span class="letra">a</span><span class="op-texto">9</span></label></li><li><input type="radio" name="q8" id="q8b" value="b"><label for="q8b" class="op"><span class="letra">b</span><span class="op-texto">17</span></label></li><li><input type="radio" name="q8" id="q8c" value="c"><label for="q8c" class="op"><span class="letra">c</span><span class="op-texto">8</span></label></li><li><input type="radio" name="q8" id="q8d" value="d"><label for="q8d" class="op"><span class="letra">d</span><span class="op-texto">10</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> Perdió bolitas, entonces se resta: 13 − 4 = 9.</p></div></article><article class="pregunta" id="p9" data-n="9" data-asig="ma" data-oa="19"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">9</span></header><div class="p-cuerpo"><div class="enunciado"><p>El curso anotó las frutas que comió en la semana. ¿Qué fruta tiene <strong>6</strong> palitos?</p></div><div class="fig fig-tabla"><table class="conteo"><caption>Frutas que comimos</caption><tr><th scope="row">Plátano</th><td aria-label="8"><svg class="palitos" viewBox="0 0 26 24" width="26" height="24" aria-hidden="true"><line x1="3" y1="2" x2="3" y2="22"/><line x1="9" y1="2" x2="9" y2="22"/><line x1="15" y1="2" x2="15" y2="22"/><line x1="21" y1="2" x2="21" y2="22"/><line x1="0" y1="18" x2="24" y2="6"/></svg><svg class="palitos" viewBox="0 0 26 24" width="26" height="24" aria-hidden="true"><line x1="3" y1="2" x2="3" y2="22"/><line x1="9" y1="2" x2="9" y2="22"/><line x1="15" y1="2" x2="15" y2="22"/></svg></td></tr><tr><th scope="row">Naranja</th><td aria-label="6"><svg class="palitos" viewBox="0 0 26 24" width="26" height="24" aria-hidden="true"><line x1="3" y1="2" x2="3" y2="22"/><line x1="9" y1="2" x2="9" y2="22"/><line x1="15" y1="2" x2="15" y2="22"/><line x1="21" y1="2" x2="21" y2="22"/><line x1="0" y1="18" x2="24" y2="6"/></svg><svg class="palitos" viewBox="0 0 26 24" width="26" height="24" aria-hidden="true"><line x1="3" y1="2" x2="3" y2="22"/></svg></td></tr><tr><th scope="row">Pera</th><td aria-label="4"><svg class="palitos" viewBox="0 0 26 24" width="26" height="24" aria-hidden="true"><line x1="3" y1="2" x2="3" y2="22"/><line x1="9" y1="2" x2="9" y2="22"/><line x1="15" y1="2" x2="15" y2="22"/><line x1="21" y1="2" x2="21" y2="22"/></svg></td></tr></table></div><fieldset><legend class="sr">Alternativas de la pregunta 9</legend><ol class="opciones"><li><input type="radio" name="q9" id="q9a" value="a"><label for="q9a" class="op"><span class="letra">a</span><span class="op-texto">Plátano</span></label></li><li><input type="radio" name="q9" id="q9b" value="b"><label for="q9b" class="op"><span class="letra">b</span><span class="op-texto">Naranja</span></label></li><li><input type="radio" name="q9" id="q9c" value="c"><label for="q9c" class="op"><span class="letra">c</span><span class="op-texto">Pera</span></label></li><li><input type="radio" name="q9" id="q9d" value="d"><label for="q9d" class="op"><span class="letra">d</span><span class="op-texto">Manzana</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> La naranja tiene un grupo de 5 palitos y 1 palito más: 5 + 1 = 6.</p></div></article><article class="pregunta" id="p10" data-n="10" data-asig="ma" data-oa="20"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">10</span></header><div class="p-cuerpo"><div class="enunciado"><p>El curso anotó cómo llega al colegio. ¿Cuántos niños llegan <strong>a pie</strong>?</p></div><div class="fig fig-tabla"><table class="pictograma"><caption>¿Cómo llegamos al colegio?</caption><tr><th scope="row">Auto</th><td><span class="picto">🙂🙂🙂🙂</span></td></tr><tr><th scope="row">Bus</th><td><span class="picto">🙂🙂🙂🙂🙂🙂</span></td></tr><tr><th scope="row">Bicicleta</th><td><span class="picto">🙂🙂🙂</span></td></tr><tr><th scope="row">A pie</th><td><span class="picto">🙂🙂🙂🙂🙂</span></td></tr></table><p class="leyenda">Cada 🙂 es un niño</p></div><fieldset><legend class="sr">Alternativas de la pregunta 10</legend><ol class="opciones"><li><input type="radio" name="q10" id="q10a" value="a"><label for="q10a" class="op"><span class="letra">a</span><span class="op-texto">3</span></label></li><li><input type="radio" name="q10" id="q10b" value="b"><label for="q10b" class="op"><span class="letra">b</span><span class="op-texto">4</span></label></li><li><input type="radio" name="q10" id="q10c" value="c"><label for="q10c" class="op"><span class="letra">c</span><span class="op-texto">5</span></label></li><li><input type="radio" name="q10" id="q10d" value="d"><label for="q10d" class="op"><span class="letra">d</span><span class="op-texto">6</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> En la fila "A pie" hay 5 caritas. Cada carita es un niño.</p></div></article></section><section class="asig asig-cn"><h2><span>Ciencias Naturales</span><small>Preguntas 11 a 15</small></h2><article class="pregunta" id="p11" data-n="11" data-asig="cn" data-oa="5"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">11</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Qué ave grande de Chile vuela alto sobre la cordillera de los Andes?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 11</legend><ol class="opciones"><li><input type="radio" name="q11" id="q11a" value="a"><label for="q11a" class="op"><span class="letra">a</span><span class="op-texto">El pingüino de Humboldt</span></label></li><li><input type="radio" name="q11" id="q11b" value="b"><label for="q11b" class="op"><span class="letra">b</span><span class="op-texto">El cóndor</span></label></li><li><input type="radio" name="q11" id="q11c" value="c"><label for="q11c" class="op"><span class="letra">c</span><span class="op-texto">La gallina</span></label></li><li><input type="radio" name="q11" id="q11d" value="d"><label for="q11d" class="op"><span class="letra">d</span><span class="op-texto">El pudú</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> El cóndor es un ave muy grande que vuela sobre la cordillera. Está en el escudo de Chile.</p></div></article><article class="pregunta" id="p12" data-n="12" data-asig="cn" data-oa="6"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">12</span></header><div class="p-cuerpo"><div class="enunciado"><p>Algo se quema en la cocina y tú no lo ves. ¿Qué sentido te avisa?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 12</legend><ol class="opciones"><li><input type="radio" name="q12" id="q12a" value="a"><label for="q12a" class="op"><span class="letra">a</span><span class="op-texto">El olfato</span></label></li><li><input type="radio" name="q12" id="q12b" value="b"><label for="q12b" class="op"><span class="letra">b</span><span class="op-texto">El gusto</span></label></li><li><input type="radio" name="q12" id="q12c" value="c"><label for="q12c" class="op"><span class="letra">c</span><span class="op-texto">La vista</span></label></li><li><input type="radio" name="q12" id="q12d" value="d"><label for="q12d" class="op"><span class="letra">d</span><span class="op-texto">El oído</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> Con la nariz sentimos el olor a quemado. El olfato nos avisa de un peligro.</p></div></article><article class="pregunta" id="p13" data-n="13" data-asig="cn" data-oa="8"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">13</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Qué material es <strong>transparente</strong>?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 13</legend><ol class="opciones"><li><input type="radio" name="q13" id="q13a" value="a"><label for="q13a" class="op"><span class="letra">a</span><span class="op-texto">La madera</span></label></li><li><input type="radio" name="q13" id="q13b" value="b"><label for="q13b" class="op"><span class="letra">b</span><span class="op-texto">El cartón</span></label></li><li><input type="radio" name="q13" id="q13c" value="c"><label for="q13c" class="op"><span class="letra">c</span><span class="op-texto">El vidrio</span></label></li><li><input type="radio" name="q13" id="q13d" value="d"><label for="q13d" class="op"><span class="letra">d</span><span class="op-texto">El metal</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> El vidrio deja pasar la luz y se puede ver a través de él.</p></div></article><article class="pregunta" id="p14" data-n="14" data-asig="cn" data-oa="9"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">14</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Qué le pasa a un cubo de hielo si lo dejas fuera del refrigerador?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 14</legend><ol class="opciones"><li><input type="radio" name="q14" id="q14a" value="a"><label for="q14a" class="op"><span class="letra">a</span><span class="op-texto">Se pone más duro</span></label></li><li><input type="radio" name="q14" id="q14b" value="b"><label for="q14b" class="op"><span class="letra">b</span><span class="op-texto">Crece</span></label></li><li><input type="radio" name="q14" id="q14c" value="c"><label for="q14c" class="op"><span class="letra">c</span><span class="op-texto">Se vuelve piedra</span></label></li><li><input type="radio" name="q14" id="q14d" value="d"><label for="q14d" class="op"><span class="letra">d</span><span class="op-texto">Se derrite y se hace agua</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> Afuera hace más calor. El calor derrite el hielo y se vuelve agua.</p></div></article><article class="pregunta" id="p15" data-n="15" data-asig="cn" data-oa="11"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">15</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Cómo se llama el momento del día en que <strong>sale</strong> el Sol?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 15</legend><ol class="opciones"><li><input type="radio" name="q15" id="q15a" value="a"><label for="q15a" class="op"><span class="letra">a</span><span class="op-texto">Anochecer</span></label></li><li><input type="radio" name="q15" id="q15b" value="b"><label for="q15b" class="op"><span class="letra">b</span><span class="op-texto">Amanecer</span></label></li><li><input type="radio" name="q15" id="q15c" value="c"><label for="q15c" class="op"><span class="letra">c</span><span class="op-texto">Medianoche</span></label></li><li><input type="radio" name="q15" id="q15d" value="d"><label for="q15d" class="op"><span class="letra">d</span><span class="op-texto">Mediodía</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> En el amanecer el Sol aparece y empieza el día.</p></div></article></section><section class="asig asig-hi"><h2><span>Historia</span><small>Preguntas 16 a 20</small></h2><article class="pregunta" id="p16" data-n="16" data-asig="hi" data-oa="6"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">16</span></header><div class="p-cuerpo"><div class="enunciado"><p>El <strong>21 de mayo</strong> recordamos:</p></div><fieldset><legend class="sr">Alternativas de la pregunta 16</legend><ol class="opciones"><li><input type="radio" name="q16" id="q16a" value="a"><label for="q16a" class="op"><span class="letra">a</span><span class="op-texto">El Combate Naval de Iquique</span></label></li><li><input type="radio" name="q16" id="q16b" value="b"><label for="q16b" class="op"><span class="letra">b</span><span class="op-texto">La Navidad</span></label></li><li><input type="radio" name="q16" id="q16c" value="c"><label for="q16c" class="op"><span class="letra">c</span><span class="op-texto">El Año Nuevo</span></label></li><li><input type="radio" name="q16" id="q16d" value="d"><label for="q16d" class="op"><span class="letra">d</span><span class="op-texto">Las Fiestas Patrias</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> El 21 de mayo recordamos el Combate Naval de Iquique. Las Fiestas Patrias son el 18 de septiembre.</p></div></article><article class="pregunta" id="p17" data-n="17" data-asig="hi" data-oa="9"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">17</span></header><div class="p-cuerpo"><div class="enunciado"><p>Mira el mapa. ¿Qué está al lado <strong>derecho</strong> de Chile, con montañas muy altas?</p></div><div class="fig"><svg class="mapa" viewBox="0 0 300 430" width="300" role="img" aria-label="Mapa de Chile: a la izquierda el océano Pacífico, a la derecha la cordillera de los Andes y Argentina">
+<rect class="mar" x="0" y="0" width="300" height="430"/>
+<path class="vecino" d="M118 12 L300 12 L300 430 L128 430 L120 400 L118 380 L122 340 L126 300 L130 250 L134 200 L138 160 L142 110 L146 60 L144 12 Z"/>
+<path class="chile" d="M118 12 L116 60 L112 110 L110 160 L108 200 L104 250 L100 300 L96 340 L90 380 L96 400 L110 425 L128 425 L120 400 L118 380 L122 340 L126 300 L130 250 L134 200 L138 160 L142 110 L146 60 L144 12 Z"/>
+<g class="montes">
+<path d="M146 40 l6 -12 l6 12 Z"/><path d="M147 80 l6 -12 l6 12 Z"/><path d="M143 120 l6 -12 l6 12 Z"/>
+<path d="M140 160 l6 -12 l6 12 Z"/><path d="M136 200 l6 -12 l6 12 Z"/><path d="M132 240 l6 -12 l6 12 Z"/>
+<path d="M128 280 l6 -12 l6 12 Z"/><path d="M124 320 l6 -12 l6 12 Z"/><path d="M120 360 l6 -12 l6 12 Z"/>
+</g>
+<circle class="capital" cx="122" cy="182" r="5"/>
+<text class="et" x="58" y="186" text-anchor="middle">Santiago</text>
+<line class="guia" x1="96" y1="183" x2="116" y2="182"/>
+<text class="et mar-et" x="52" y="300" text-anchor="middle">Océano</text>
+<text class="et mar-et" x="52" y="318" text-anchor="middle">Pacífico</text>
+<text class="et" x="228" y="300" text-anchor="middle">Argentina</text>
+<text class="et" x="215" y="62" text-anchor="middle">Bolivia</text>
+<text class="et" x="226" y="200" text-anchor="middle">Cordillera</text>
+<text class="et" x="226" y="217" text-anchor="middle">de los Andes</text>
+<line class="guia" x1="178" y1="206" x2="152" y2="206"/>
+<text class="et chile-et" x="64" y="96" text-anchor="middle">CHILE</text>
+<line class="guia" x1="86" y1="92" x2="112" y2="96"/>
+<g class="rosa" transform="translate(262 390)"><circle r="18"/><text x="0" y="-5" text-anchor="middle">N</text><text x="-11" y="10" text-anchor="middle">O</text><text x="11" y="10" text-anchor="middle">E</text></g>
+</svg></div><fieldset><legend class="sr">Alternativas de la pregunta 17</legend><ol class="opciones"><li><input type="radio" name="q17" id="q17a" value="a"><label for="q17a" class="op"><span class="letra">a</span><span class="op-texto">El océano Pacífico</span></label></li><li><input type="radio" name="q17" id="q17b" value="b"><label for="q17b" class="op"><span class="letra">b</span><span class="op-texto">Santiago</span></label></li><li><input type="radio" name="q17" id="q17c" value="c"><label for="q17c" class="op"><span class="letra">c</span><span class="op-texto">La cordillera de los Andes</span></label></li><li><input type="radio" name="q17" id="q17d" value="d"><label for="q17d" class="op"><span class="letra">d</span><span class="op-texto">El desierto</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> En el mapa, la cordillera de los Andes está a la derecha (al este) de Chile. Tiene montañas muy altas.</p></div></article><article class="pregunta" id="p18" data-n="18" data-asig="hi" data-oa="10"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">18</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Qué lugar tiene muchos edificios, calles y autos?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 18</legend><ol class="opciones"><li><input type="radio" name="q18" id="q18a" value="a"><label for="q18a" class="op"><span class="letra">a</span><span class="op-texto">Un bosque</span></label></li><li><input type="radio" name="q18" id="q18b" value="b"><label for="q18b" class="op"><span class="letra">b</span><span class="op-texto">Una ciudad</span></label></li><li><input type="radio" name="q18" id="q18c" value="c"><label for="q18c" class="op"><span class="letra">c</span><span class="op-texto">Una isla</span></label></li><li><input type="radio" name="q18" id="q18d" value="d"><label for="q18d" class="op"><span class="letra">d</span><span class="op-texto">Un desierto</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> En la ciudad vive mucha gente. Hay edificios, calles y autos, como en Santiago.</p></div></article><article class="pregunta" id="p19" data-n="19" data-asig="hi" data-oa="14"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">19</span></header><div class="p-cuerpo"><div class="enunciado"><p>Vas en auto. ¿Qué debes usar siempre?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 19</legend><ol class="opciones"><li><input type="radio" name="q19" id="q19a" value="a"><label for="q19a" class="op"><span class="letra">a</span><span class="op-texto">El cinturón de seguridad</span></label></li><li><input type="radio" name="q19" id="q19b" value="b"><label for="q19b" class="op"><span class="letra">b</span><span class="op-texto">Un gorro</span></label></li><li><input type="radio" name="q19" id="q19c" value="c"><label for="q19c" class="op"><span class="letra">c</span><span class="op-texto">Audífonos</span></label></li><li><input type="radio" name="q19" id="q19d" value="d"><label for="q19d" class="op"><span class="letra">d</span><span class="op-texto">Una pelota</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> El cinturón de seguridad te protege si el auto frena fuerte.</p></div></article><article class="pregunta" id="p20" data-n="20" data-asig="hi" data-oa="15"><div class="marca" aria-hidden="true"></div><header class="p-cab"><span class="p-num">20</span></header><div class="p-cuerpo"><div class="enunciado"><p>¿Qué hacen los <strong>bomberos</strong>?</p></div><fieldset><legend class="sr">Alternativas de la pregunta 20</legend><ol class="opciones"><li><input type="radio" name="q20" id="q20a" value="a"><label for="q20a" class="op"><span class="letra">a</span><span class="op-texto">Enseñan a leer</span></label></li><li><input type="radio" name="q20" id="q20b" value="b"><label for="q20b" class="op"><span class="letra">b</span><span class="op-texto">Retiran la basura</span></label></li><li><input type="radio" name="q20" id="q20c" value="c"><label for="q20c" class="op"><span class="letra">c</span><span class="op-texto">Curan a los enfermos</span></label></li><li><input type="radio" name="q20" id="q20d" value="d"><label for="q20d" class="op"><span class="letra">d</span><span class="op-texto">Apagan incendios y rescatan personas</span></label></li></ol></fieldset><p class="porque" hidden><strong>Por qué:</strong> Los bomberos apagan incendios y ayudan a rescatar personas. Su número es el 132.</p></div></article></section>
+  </form>
+
+  <footer class="cierre">
+    <div class="confirmar" id="confirmar" hidden>
+      <p id="confirmar-txt"></p>
+      <div class="botones">
+        <button type="button" class="btn sec" id="volver">Seguir respondiendo</button>
+        <button type="button" class="btn" id="revisar-igual">Revisar igual</button>
+      </div>
+    </div>
+    <div class="botones" id="acciones">
+      <button type="button" class="btn" id="revisar">Revisar mi prueba</button>
+      <button type="button" class="btn sec" id="otra-vez" hidden>Hacer la prueba de nuevo</button>
+    </div>
+  </footer>
+</main>
+<script id="datos" type="application/json">{"id": "prueba-26", "total": 20, "clave": {"1": "c", "2": "a", "3": "d", "4": "b", "5": "d", "6": "e", "7": "d", "8": "a", "9": "b", "10": "c", "11": "b", "12": "a", "13": "c", "14": "d", "15": "b", "16": "a", "17": "c", "18": "b", "19": "a", "20": "d"}, "exigencia": 0.6, "asignaturas": [["le", "Lenguaje"], ["ma", "Matemática"], ["cn", "Ciencias Naturales"], ["hi", "Historia"]]}</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('datos').textContent);
+  const KEY = 'examen-libre-1b-' + D.id;
+  const form = document.getElementById('prueba');
+  const $ = (id) => document.getElementById(id);
+  const leer = () => { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } };
+  const guardar = (s) => { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} };
+  let estado = leer();
+  estado.r = estado.r || {};
+
+  $('fecha').textContent = new Date().toLocaleDateString('es-CL', { day: 'numeric', month: 'long' });
+
+  for (const [n, l] of Object.entries(estado.r)) {
+    const el = document.getElementById('q' + n + l);
+    if (el) el.checked = true;
+  }
+
+  function respuestas() {
+    const r = {};
+    for (const n of Object.keys(D.clave)) {
+      const el = form.querySelector('input[name="q' + n + '"]:checked');
+      if (el) r[n] = el.value;
+    }
+    return r;
+  }
+
+  function avance() {
+    const n = Object.keys(respuestas()).length;
+    $('respondidas').textContent = n;
+    $('medidor-lleno').style.width = (100 * n / D.total) + '%';
+  }
+
+  function reloj() {
+    if (!estado.inicio) return;
+    const fin = estado.fin || Date.now();
+    const min = Math.floor((fin - estado.inicio) / 60000);
+    $('reloj').textContent = min + ' min de 90';
+  }
+  setInterval(reloj, 15000);
+
+  form.addEventListener('change', () => {
+    if (estado.revisada) return;
+    if (!estado.inicio) estado.inicio = Date.now();
+    estado.r = respuestas();
+    guardar(estado);
+    avance(); reloj();
+    $('confirmar').hidden = true;
+  });
+
+  // Escala 1,0-7,0 lineal en dos tramos: la exigencia vale 4,0. Se redondea a un decimal.
+  function nota(buenas, total) {
+    const p = total ? buenas / total : 0, e = D.exigencia;
+    const n = p < e ? 1 + 3 * p / e : 4 + 3 * (p - e) / (1 - e);
+    return Math.round(n * 10 + 1e-9) / 10;
+  }
+  const fmt = (n) => n.toFixed(1).replace('.', ',');
+  const tono = (n) => (n >= 4 ? 'aprueba' : 'reprueba');
+  // Promoción (Mineduc): todas las asignaturas con 4,0; o una reprobada con promedio 4,5; o dos con promedio 5,0.
+  function promovido(notas) {
+    const rojas = notas.filter((n) => n < 4).length;
+    const prom = notas.reduce((a, b) => a + b, 0) / notas.length;
+    return rojas === 0 || (rojas === 1 && prom >= 4.5) || (rojas === 2 && prom >= 5);
+  }
+
+  function revisar() {
+    const r = respuestas();
+    estado.revisada = true;
+    estado.fin = estado.fin || Date.now();
+    estado.r = r;
+    guardar(estado);
+    let buenas = 0;
+    const porAsig = {};
+    const repasar = {};
+    document.querySelectorAll('.pregunta').forEach((art) => {
+      const n = art.dataset.n, asig = art.dataset.asig;
+      const ok = r[n] === D.clave[n];
+      porAsig[asig] = porAsig[asig] || [0, 0];
+      porAsig[asig][1]++;
+      if (ok) { buenas++; porAsig[asig][0]++; }
+      else (repasar[asig] = repasar[asig] || new Set()).add(art.dataset.oa);
+      art.classList.add('revisada');
+      art.querySelector('.marca').textContent = ok ? '✓' : '✗';
+      art.querySelector('label[for="q' + n + D.clave[n] + '"]').classList.add('es-correcta');
+      art.querySelectorAll('input').forEach((i) => { i.disabled = true; });
+      art.querySelector('.porque').hidden = false;
+    });
+    const nGlobal = nota(buenas, D.total);
+    const notasAsig = D.asignaturas.map(([k]) => nota(...(porAsig[k] || [0, 0])));
+    const pasa = promovido(notasAsig);
+    estado.nota = nGlobal;
+    estado.buenas = buenas;
+    estado.mejor = Math.max(estado.mejor || 0, nGlobal);
+    guardar(estado);
+    const necesarias = Math.ceil(D.exigencia * D.total - 1e-9);
+    $('nota').className = 'nota ' + tono(nGlobal);
+    $('nota-num').textContent = fmt(nGlobal);
+    $('nota-buenas').textContent = buenas + '/' + D.total + ' buenas';
+    $('nota-hoja').textContent = fmt(nGlobal);
+    $('nota-hoja').className = 'mano ' + tono(nGlobal);
+    $('puntaje-hoja').textContent = buenas;
+    $('res-msj').className = 'res-msj ' + (pasa ? 'aprueba' : 'reprueba');
+    $('res-msj').textContent = pasa
+      ? (buenas === D.total ? '¡Perfecto! Todas buenas. Apruebas.' : '¡Apruebas! Muy bien.')
+      : 'Todavía no apruebas. Para el 4,0 necesitas ' + necesarias + ' buenas y 4,0 en cada asignatura.';
+    $('res-asig').innerHTML = D.asignaturas.map(([k, nombre], i) => {
+      const [b, t] = porAsig[k] || [0, 0];
+      const n = notasAsig[i];
+      return '<li class="' + k + '"><span>' + nombre + '</span><span class="tira"><span style="width:' +
+        (t ? 100 * b / t : 0) + '%"></span></span><span>' + b + '/' + t + '</span><span class="n-asig ' +
+        tono(n) + '">' + fmt(n) + '</span></li>';
+    }).join('');
+    const rep = D.asignaturas.filter(([k]) => repasar[k]).map(([k, nombre]) =>
+      nombre + ' (OA ' + [...repasar[k]].sort((a, b) => a - b).join(', ') + ')');
+    $('res-repasar').textContent = rep.length ? 'Para repasar: ' + rep.join(' · ') + '.' : '';
+    $('resultado').hidden = false;
+    $('revisar').hidden = true;
+    $('otra-vez').hidden = false;
+    $('confirmar').hidden = true;
+    reloj();
+    $('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  $('revisar').addEventListener('click', () => {
+    const r = respuestas();
+    const faltan = Object.keys(D.clave).filter((n) => !r[n]);
+    if (faltan.length) {
+      $('confirmar-txt').textContent = (faltan.length === 1 ? 'Te falta la pregunta ' : 'Te faltan las preguntas ') +
+        faltan.join(', ') + '. ¿Quieres revisar igual?';
+      $('confirmar').hidden = false;
+      return;
+    }
+    revisar();
+  });
+  $('revisar-igual').addEventListener('click', revisar);
+  $('volver').addEventListener('click', () => {
+    $('confirmar').hidden = true;
+    const r = respuestas();
+    const primera = Object.keys(D.clave).find((n) => !r[n]);
+    if (primera) $('p' + primera).scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  $('otra-vez').addEventListener('click', () => {
+    estado = { r: {}, mejor: estado.mejor };
+    guardar(estado);
+    form.reset();
+    document.querySelectorAll('.pregunta').forEach((art) => {
+      art.classList.remove('revisada');
+      art.querySelector('.marca').textContent = '';
+      art.querySelectorAll('.es-correcta').forEach((l) => l.classList.remove('es-correcta'));
+      art.querySelectorAll('input').forEach((i) => { i.disabled = false; });
+      art.querySelector('.porque').hidden = true;
+    });
+    $('resultado').hidden = true;
+    $('puntaje-hoja').textContent = '';
+    $('nota-hoja').textContent = '';
+    $('revisar').hidden = false;
+    $('otra-vez').hidden = true;
+    $('reloj').textContent = '0 min de 90';
+    avance();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  avance(); reloj();
+  if (estado.revisada) revisar();
+})();
+</script>
+</body>
+</html>
